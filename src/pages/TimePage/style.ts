@@ -32,9 +32,13 @@ export const SelectContainer = styled.select`
 	text-align: center;
 `;
 
-export const OptionText = styled.option``;
+export const OptionText = styled.option`
+	text-align: center;
+`;
 
-export const SelectOptionText = styled.option``;
+export const SelectOptionText = styled.option`
+	text-align: center;
+`;
 
 export const FullDate = styled.p`
 	width: 100%;

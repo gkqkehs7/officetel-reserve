@@ -13,7 +13,11 @@ const FloorPage = () => {
 	const [floor, setFloor] = useState<string>('');
 
 	const handleFloorChange = (e: any) => {
-		setFloor(e.target.value);
+		const inputValue = e.target.value;
+
+		if (/^[0-9]*$/.test(inputValue)) {
+			setFloor(e.target.value);
+		}
 	};
 
 	const toNext = () => {

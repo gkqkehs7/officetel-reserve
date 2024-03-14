@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -7,7 +7,6 @@ import {
 	SelectContainer,
 	OptionText,
 	SelectOptionText,
-	FullDate,
 } from './style';
 import ButtonComponent from '../../components/Button/Button';
 import { remainTime } from './remainTime';

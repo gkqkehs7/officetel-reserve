@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 import { dateState, floorState, timeState } from '../../recoil';
-import { Container, DataText, CheckText } from './style';
+import { Container, DataText, CheckText, LoadingImage } from './style';
 import ButtonComponent from '../../components/Button/Button';
 import { useState } from 'react';
+
+import Loading from '/images/Loading.png';
 
 const CheckPage = () => {
 	const navigation = useNavigate();
@@ -50,15 +52,23 @@ const CheckPage = () => {
 
 	return (
 		<Container>
-			<DataText>
-				{floor}호 {moment(date).format('YYYY년 MM월 DD일')} {hour}시 {minute}분
-			</DataText>
+			{loading ? (
+				<LoadingImage src={Loading} />
+			) : (
+				<>
+					<DataText>{floor}호</DataText>
 
-			<CheckText>맞으면 완료버튼을 눌러주세요</CheckText>
+					<DataText>
+						{moment(date).format('YYYY/MM/DD')} {hour}시 {minute}분
+					</DataText>
 
-			<ButtonComponent title={'이전'} color={'#cccccc'} onClick={toPrev} />
+					<CheckText>맞으면 완료버튼을 눌러주세요</CheckText>
 
-			<ButtonComponent title={'완료'} color={'#ffa500'} onClick={toNext} />
+					<ButtonComponent title={'이전'} color={'#cccccc'} onClick={toPrev} />
+
+					<ButtonComponent title={'완료'} color={'#ffa500'} onClick={toNext} />
+				</>
+			)}
 		</Container>
 	);
 };
