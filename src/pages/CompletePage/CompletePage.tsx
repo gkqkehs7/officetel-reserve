@@ -1,6 +1,6 @@
 import { Container, CompleteText } from './style';
 
-const LastPage = () => {
+const CompletePage = () => {
 	return (
 		<Container>
 			<CompleteText>완료되었습니다!</CompleteText>
@@ -8,4 +8,4 @@ const LastPage = () => {
 	);
 };
 
-export default LastPage;
+export default CompletePage;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -11,6 +11,8 @@ import {
 	StyledDot,
 } from './style';
 import ButtonComponent from '../../components/Button/Button';
+import { dateState } from '../../recoil';
+import { useSetRecoilState } from 'recoil';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -18,16 +20,11 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 const CalendarPage = () => {
 	const navigation = useNavigate();
 
-	const toPrev = () => {
-		return navigation('/floor');
-	};
-
-	const toNext = () => {
-		return navigation('/time');
-	};
+	const setDateData = useSetRecoilState(dateState);
 
 	const today = new Date();
-	const [date, setDate] = useState<Value>(today);
+
+	const [date, setDate] = useState<Value>();
 	const [activeStartDate, setActiveStartDate] = useState<Date | null>(
 		new Date()
 	);
@@ -42,6 +39,24 @@ const CalendarPage = () => {
 		setActiveStartDate(today);
 		setDate(today);
 	};
+
+	const toPrev = () => {
+		return navigation('/floor');
+	};
+
+	const toNext = () => {
+		if (!date) {
+			return alert('날짜를 선택해주세요!');
+		}
+
+		setDateData(date.toString());
+
+		return navigation('/time');
+	};
+
+	useEffect(() => {
+		console.log(date);
+	}, [date]);
 
 	return (
 		<Container>
@@ -87,9 +102,9 @@ const CalendarPage = () => {
 				<StyledDate onClick={handleTodayClick}>오늘</StyledDate>
 			</StyledCalendarWrapper>
 
-			<ButtonComponent title={'이전'} onClick={toPrev} />
+			<ButtonComponent title={'이전'} color={'#cccccc'} onClick={toPrev} />
 
-			<ButtonComponent title={'다음'} onClick={toNext} />
+			<ButtonComponent title={'다음'} color={'#ffa500'} onClick={toNext} />
 		</Container>
 	);
 };

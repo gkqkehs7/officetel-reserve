@@ -11,7 +11,12 @@ export const Container = styled.div`
 	padding: 0 20px;
 `;
 
-export const LandingText = styled.p`
+export const DataText = styled.div`
 	font-size: x-large;
 	font-weight: bold;
+`;
+
+export const CheckText = styled.div`
+	font-size: medium;
+	margin: 10px 0;
 `;

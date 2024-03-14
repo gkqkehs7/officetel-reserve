@@ -22,6 +22,7 @@ export const StyledCalendarWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	position: relative;
+	margin-bottom: 10px;
 
 	.react-calendar {
 		width: 100%;
@@ -43,6 +44,17 @@ export const StyledCalendarWrapper = styled.div`
 	/* 네비게이션 가운데 정렬 */
 	.react-calendar__navigation {
 		justify-content: center;
+	}
+
+	/* 년도 버튼 */
+	.react-calendar__navigation__label {
+		pointer-events: none;
+	}
+
+	/* 월 이동 버튼 */
+	.react-calendar__navigation__arrow {
+		outline: none !important;
+		box-shadow: none !important;
 	}
 
 	/* 네비게이션 폰트 설정 */
@@ -76,7 +88,7 @@ export const StyledCalendarWrapper = styled.div`
 
 	/* 일요일에만 빨간 폰트 */
 	.react-calendar__month-view__weekdays__weekday--weekend abbr[title='일요일'] {
-		color: ${(props) => props.theme.red_1};
+		color: red;
 	}
 
 	/* 오늘 날짜 폰트 컬러 */
@@ -158,6 +170,7 @@ export const StyledDate = styled.div`
 /* 오늘 날짜에 텍스트 삽입 스타일 */
 export const StyledToday = styled.div`
 	font-size: x-small;
+
 	color: #ffa500;
 	font-weight: 600;
 	position: absolute;

@@ -10,11 +10,9 @@ const ButtonContainer = styled.div`
 	width: 100%;
 	height: 40px;
 	max-width: 500px;
-	margin: 20px auto;
+	margin: 5px auto;
 
 	font-size: large;
-
-	background-color: #ffa500;
 
 	cursor: pointer;
 `;

@@ -18,6 +18,8 @@ const InputContainer = styled.div`
 	width: 100%;
 	max-width: 500px;
 	margin: 20px auto;
+
+	overflow-y: none;
 `;
 
 const InputText = styled.p`
