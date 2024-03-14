@@ -13,7 +13,7 @@ const LandingPage = () => {
 		<Container>
 			<LandingText>어떤건지 설명</LandingText>
 
-			<ButtonComponent title={'예약하기'} onClick={toNext} />
+			<ButtonComponent title={'예약하기'} color={'#ffa500'} onClick={toNext} />
 		</Container>
 	);
 };
