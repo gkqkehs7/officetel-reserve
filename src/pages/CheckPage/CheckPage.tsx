@@ -59,7 +59,7 @@ const CheckPage = () => {
 					<DataText>{floor}호</DataText>
 
 					<DataText>
-						{moment(date).format('YYYY/MM/DD')} {hour}시 {minute}분
+						{moment(date).format('YYYY/MM/DD')} {hour}:{minute}
 					</DataText>
 
 					<CheckText>맞으면 완료버튼을 눌러주세요</CheckText>

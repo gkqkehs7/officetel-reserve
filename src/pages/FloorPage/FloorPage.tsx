@@ -22,7 +22,7 @@ const FloorPage = () => {
 
 	const toNext = () => {
 		if (!floor) {
-			return alert('호수를 입력해주세요');
+			return alert('호수는 숫자로만 입력해주세요');
 		}
 
 		setFloorData(floor);
