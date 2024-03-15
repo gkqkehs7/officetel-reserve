@@ -11,7 +11,12 @@ export const Container = styled.div`
 	padding: 0 20px;
 `;
 
-export const LandingText = styled.p`
+export const LandingText = styled.div`
 	font-size: x-large;
 	font-weight: bold;
+`;
+
+export const SmallText = styled.div`
+	font-size: medium;
+	margin: 10px 0 20px 0;
 `;
