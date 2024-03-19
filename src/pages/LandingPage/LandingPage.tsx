@@ -1,12 +1,14 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ButtonComponent from '../../components/Button/Button';
 import { Container, LandingText, SmallText } from './style';
 
 const LandingPage = () => {
 	const navigation = useNavigate();
 
+	const { encryptedOfficetelId } = useParams();
+
 	const toNext = () => {
-		return navigation('/floor');
+		return navigation(`/${encryptedOfficetelId}/floor`);
 	};
 
 	return (

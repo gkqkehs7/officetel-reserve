@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { floorState } from '../../recoil';
 import { Container, Input, InputContainer, InputText } from './style';
@@ -7,6 +7,8 @@ import ButtonComponent from '../../components/Button/Button';
 
 const FloorPage = () => {
 	const navigation = useNavigate();
+
+	const { encryptedOfficetelId } = useParams();
 
 	const setFloorData = useSetRecoilState(floorState);
 
@@ -27,7 +29,7 @@ const FloorPage = () => {
 
 		setFloorData(floor);
 
-		return navigation('/calendar');
+		return navigation(`/${encryptedOfficetelId}/calendar`);
 	};
 
 	return (

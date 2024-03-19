@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {
 	Container,
@@ -16,46 +16,30 @@ import { useSetRecoilState } from 'recoil';
 const TimePage = () => {
 	const navigation = useNavigate();
 
-	const setTimeData = useSetRecoilState(timeState);
+	const { encryptedOfficetelId } = useParams();
 
-	// const [day, setDay] = useState<string>('');
+	const setTimeData = useSetRecoilState(timeState);
 
 	const [hour, setHour] = useState<string>('');
 
-	// const [fullDate, setFullDate] = useState<string>('');
-
 	const toPrev = () => {
-		return navigation('/calendar');
+		return navigation(`/${encryptedOfficetelId}/calendar`);
 	};
 
 	const toNext = () => {
-		// if (!day) {
-		// 	return alert('오전/오후를 선택해주세요!');
-		// }
-
 		if (!hour) {
 			return alert('시간을 선택해주세요!');
 		}
 
 		setTimeData(hour);
 
-		return navigation('/check');
+		return navigation(`/${encryptedOfficetelId}/check`);
 	};
-
-	// const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-	// 	setDay(e.target.value);
-	// };
 
 	// 시간 선택이 변경될 때 호출되는 함수
 	const handleHourChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		setHour(e.target.value);
 	};
-
-	// useEffect(() => {
-	// 	if (day && hour) {
-	// 		setFullDate(`선택하신 시간은 ${day} ${hour} 입니다`);
-	// 	}
-	// }, [day, hour]);
 
 	return (
 		<Container>

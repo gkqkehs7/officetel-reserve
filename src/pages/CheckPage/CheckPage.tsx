@@ -1,16 +1,19 @@
 import { useRecoilValue } from 'recoil';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 
 import { dateState, floorState, timeState } from '../../recoil';
 import { Container, DataText, CheckText, LoadingImage } from './style';
 import ButtonComponent from '../../components/Button/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import CryptoJS from 'crypto-js';
 
 import Loading from '/images/Loading.png';
 
 const CheckPage = () => {
 	const navigation = useNavigate();
+
+	const { encryptedOfficetelId } = useParams();
 
 	const [loading, setLoading] = useState<boolean>(false);
 
@@ -21,8 +24,20 @@ const CheckPage = () => {
 	const [hour, minute] = time.split(':');
 
 	const toPrev = () => {
-		return navigation('/time');
+		return navigation(`/${encryptedOfficetelId}/time`);
 	};
+
+	const getDecodeUrl = () => {
+		if (encryptedOfficetelId) {
+			const officetelId = CryptoJS.AES.decrypt(encryptedOfficetelId, 'any');
+
+			console.log(officetelId);
+		}
+	};
+
+	useEffect(() => {
+		getDecodeUrl();
+	}, []);
 
 	const toNext = async () => {
 		try {
@@ -42,7 +57,7 @@ const CheckPage = () => {
 
 			await sendData();
 
-			return navigation('/complete');
+			return navigation(`/${encryptedOfficetelId}/complete`);
 		} catch (error) {
 			alert('에러');
 		}

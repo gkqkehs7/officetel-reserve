@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
 	CalendarText,
 	Container,
@@ -19,6 +19,8 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const CalendarPage = () => {
 	const navigation = useNavigate();
+
+	const { encryptedOfficetelId } = useParams();
 
 	const setDateData = useSetRecoilState(dateState);
 
@@ -41,7 +43,7 @@ const CalendarPage = () => {
 	};
 
 	const toPrev = () => {
-		return navigation('/floor');
+		return navigation(`/${encryptedOfficetelId}/floor`);
 	};
 
 	const toNext = () => {
@@ -51,7 +53,7 @@ const CalendarPage = () => {
 
 		setDateData(date.toString());
 
-		return navigation('/time');
+		return navigation(`/${encryptedOfficetelId}/time`);
 	};
 
 	useEffect(() => {
