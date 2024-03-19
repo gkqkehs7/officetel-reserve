@@ -11,8 +11,8 @@ import {
 	StyledDot,
 } from './style';
 import ButtonComponent from '../../components/Button/Button';
-import { dateState } from '../../recoil';
-import { useSetRecoilState } from 'recoil';
+import { dateState, officetelState } from '../../recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -23,6 +23,8 @@ const CalendarPage = () => {
 	const { encryptedOfficetelId } = useParams();
 
 	const setDateData = useSetRecoilState(dateState);
+
+	const officetel = useRecoilValue(officetelState);
 
 	const today = new Date();
 
@@ -51,7 +53,7 @@ const CalendarPage = () => {
 			return alert('날짜를 선택해주세요!');
 		}
 
-		setDateData(date.toString());
+		setDateData(moment(date as Date).format('YYYY/MM/DD'));
 
 		return navigation(`/${encryptedOfficetelId}/time`);
 	};
@@ -66,6 +68,8 @@ const CalendarPage = () => {
 			<StyledCalendarWrapper>
 				<StyledCalendar
 					value={date}
+					minDate={new Date(officetel.startDay)}
+					maxDate={new Date(officetel.endDay)}
 					onChange={handleDateChange}
 					formatDay={(locale, date) => moment(date).format('D')}
 					formatYear={(locale, date) => moment(date).format('YYYY')}
@@ -104,7 +108,11 @@ const CalendarPage = () => {
 				<StyledDate onClick={handleTodayClick}>오늘</StyledDate>
 			</StyledCalendarWrapper>
 
-			<ButtonComponent title={'이전'} color={'#cccccc'} onClick={toPrev} />
+			<ButtonComponent
+				title={'호수 재입력'}
+				color={'#cccccc'}
+				onClick={toPrev}
+			/>
 
 			<ButtonComponent title={'다음'} color={'#ffa500'} onClick={toNext} />
 		</Container>

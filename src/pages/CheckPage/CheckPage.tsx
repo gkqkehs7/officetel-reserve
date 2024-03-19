@@ -1,14 +1,13 @@
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
-
 import { dateState, floorState, timeState } from '../../recoil';
-import { Container, DataText, CheckText, LoadingImage } from './style';
 import ButtonComponent from '../../components/Button/Button';
-import { useEffect, useState } from 'react';
-import CryptoJS from 'crypto-js';
-
+import { PostAxiosInstance } from '../../api/axios.method';
 import Loading from '/images/Loading.png';
+
+import { Container, DataText, CheckText, LoadingImage } from './style';
 
 const CheckPage = () => {
 	const navigation = useNavigate();
@@ -27,18 +26,6 @@ const CheckPage = () => {
 		return navigation(`/${encryptedOfficetelId}/time`);
 	};
 
-	const getDecodeUrl = () => {
-		if (encryptedOfficetelId) {
-			const officetelId = CryptoJS.AES.decrypt(encryptedOfficetelId, 'any');
-
-			console.log(officetelId);
-		}
-	};
-
-	useEffect(() => {
-		getDecodeUrl();
-	}, []);
-
 	const toNext = async () => {
 		try {
 			if (!floor) {
@@ -55,7 +42,7 @@ const CheckPage = () => {
 
 			setLoading(true);
 
-			await sendData();
+			await makeReserve();
 
 			return navigation(`/${encryptedOfficetelId}/complete`);
 		} catch (error) {
@@ -63,7 +50,17 @@ const CheckPage = () => {
 		}
 	};
 
-	const sendData = async () => {};
+	const makeReserve = async () => {
+		const data = {
+			floor: parseInt(floor),
+			reservationDate: date,
+			reservationTime: time,
+		};
+		await PostAxiosInstance(
+			`/officetels/${encryptedOfficetelId}/reserve`,
+			data
+		);
+	};
 
 	return (
 		<Container>

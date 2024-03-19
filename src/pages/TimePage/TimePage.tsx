@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import {
@@ -9,9 +9,9 @@ import {
 	SelectOptionText,
 } from './style';
 import ButtonComponent from '../../components/Button/Button';
-import { remainTime } from './remainTime';
-import { timeState } from '../../recoil';
-import { useSetRecoilState } from 'recoil';
+import { dateState, timeState } from '../../recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { GetAxiosInstance } from '../../api/axios.method';
 
 const TimePage = () => {
 	const navigation = useNavigate();
@@ -20,7 +20,9 @@ const TimePage = () => {
 
 	const setTimeData = useSetRecoilState(timeState);
 
+	const date = useRecoilValue(dateState);
 	const [hour, setHour] = useState<string>('');
+	const [remainTimes, setRemainTimes] = useState<string[]>([]);
 
 	const toPrev = () => {
 		return navigation(`/${encryptedOfficetelId}/calendar`);
@@ -41,30 +43,41 @@ const TimePage = () => {
 		setHour(e.target.value);
 	};
 
+	// 해당 날짜의 남은 날짜 계산 함수
+	const getRemainTimes = async () => {
+		const response = await GetAxiosInstance(
+			`/officetels/${encryptedOfficetelId}/reserves?date=${date}`
+		);
+
+		setRemainTimes(response.data.data);
+	};
+
+	useEffect(() => {
+		getRemainTimes();
+	}, []);
+
 	return (
 		<Container>
-			<TimeText>원하는 시간을 선택해주세요</TimeText>
-			{/* 
-			<SelectContainer id="day" onChange={handleDayChange} value={day}>
-				<OptionText value="">오전/오후</OptionText>
-
-				<SelectOptionText>오전</SelectOptionText>
-
-				<SelectOptionText>오후</SelectOptionText>
-			</SelectContainer> */}
+			{remainTimes.length > 0 ? (
+				<TimeText>예약할 시간을 선택해주세요</TimeText>
+			) : (
+				<TimeText>가능한 시간이 없습니다</TimeText>
+			)}
 
 			<SelectContainer id="hour" onChange={handleHourChange} value={hour}>
 				<OptionText value="">시간</OptionText>
-				{remainTime.map((hour) => (
-					<SelectOptionText key={hour} value={hour}>
-						{hour}
+				{remainTimes.map((remainTime) => (
+					<SelectOptionText key={remainTime} value={remainTime}>
+						{remainTime}
 					</SelectOptionText>
 				))}
 			</SelectContainer>
 
-			{/* {fullDate && <FullDate>{fullDate}</FullDate>} */}
-
-			<ButtonComponent title={'이전'} color={'#cccccc'} onClick={toPrev} />
+			<ButtonComponent
+				title={'날짜 재선택'}
+				color={'#cccccc'}
+				onClick={toPrev}
+			/>
 
 			<ButtonComponent title={'다음'} color={'#ffa500'} onClick={toNext} />
 		</Container>

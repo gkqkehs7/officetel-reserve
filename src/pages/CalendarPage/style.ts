@@ -97,7 +97,6 @@ export const StyledCalendarWrapper = styled.div`
 
 		abbr {
 			color: #ffa500;
-			color: ${(props) => props.theme.primary_2};
 		}
 	}
 
@@ -139,7 +138,7 @@ export const StyledCalendarWrapper = styled.div`
 	.react-calendar__tile:enabled:focus,
 	.react-calendar__tile--active {
 		background-color: #e9ec69;
-		border-radius: 50px;
+
 		outline: none !important;
 		box-shadow: none !important;
 	}

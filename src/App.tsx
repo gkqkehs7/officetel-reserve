@@ -18,12 +18,27 @@ function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route>
-				<Route path="/:officetelId/" element={<LandingPage />}></Route>
-				<Route path="/:officetelId/floor" element={<FloorPage />}></Route>
-				<Route path="/:officetelId/calendar" element={<CalendarPage />}></Route>
-				<Route path="/:officetelId/time" element={<TimePage />}></Route>
-				<Route path="/:officetelId/check" element={<CheckPage />}></Route>
-				<Route path="/:officetelId/complete" element={<CompletePage />}></Route>
+				<Route path="/:encryptedOfficetelId/" element={<LandingPage />}></Route>
+				<Route
+					path="/:encryptedOfficetelId/floor"
+					element={<FloorPage />}
+				></Route>
+				<Route
+					path="/:encryptedOfficetelId/calendar"
+					element={<CalendarPage />}
+				></Route>
+				<Route
+					path="/:encryptedOfficetelId/time"
+					element={<TimePage />}
+				></Route>
+				<Route
+					path="/:encryptedOfficetelId/check"
+					element={<CheckPage />}
+				></Route>
+				<Route
+					path="/:encryptedOfficetelId/complete"
+					element={<CompletePage />}
+				></Route>
 			</Route>
 		)
 	);

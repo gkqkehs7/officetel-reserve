@@ -14,7 +14,7 @@ const FloorPage = () => {
 
 	const [floor, setFloor] = useState<string>('');
 
-	const handleFloorChange = (e: any) => {
+	const handleFloorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const inputValue = e.target.value;
 
 		if (/^[0-9]*$/.test(inputValue)) {
