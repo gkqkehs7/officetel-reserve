@@ -1,8 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 const axiosInstance: AxiosInstance = axios.create({
-	baseURL: '/api',
-	withCredentials: true,
+	baseURL: import.meta.env.DEV ? '/api' : process.env.VITE_SERVER_DOMAIN,
 });
 
 axiosInstance.interceptors.request.use(
